@@ -6,7 +6,7 @@ Check if vaccine is available in your vaccination center by params zip code and 
 ![Screenshot](vaccine-widget.jpg)
 ![Screenshot](vaccine-widget1.jpg)
 ![Screenshot](vaccine-widget2.jpg){:height="50%" width="50%"}
-![Screenshot](vaccine-widget3.jpg){:height="50%" width="50%"}
+<img src="https://github.com/SmonSE/impfterminservice/edit/main/vaccine-widget3.jpg" width="48">
 
 # How to add scriptable widget to the home screen
 
