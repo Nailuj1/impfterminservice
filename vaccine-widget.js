@@ -1,6 +1,6 @@
 /* -----------------------------------------------
 
-Script      : impfterminservice.js
+Script      : vaccine-widget.js
 Author      : SEisele
 Version     : 1.0.0
 Description :
