@@ -6,7 +6,7 @@ Check if vaccine is available in your vaccination center by params zip code and 
 ![Screenshot](vaccine-widget.jpg)
 ![Screenshot](vaccine-widget1.jpg)
 ![Screenshot](vaccine-widget2.jpg)
-![Screenshot](vaccine-widget3.jpg)
+![Screenshot](vaccine-widget3.jpg| width=50)
 
 # How to add scriptable widget to the home screen
 
