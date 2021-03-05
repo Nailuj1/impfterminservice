@@ -186,12 +186,12 @@ async function createWidget() {
   const footer = list.addStack();
   footer.layoutHorizontally();
  
-  const footerLeft = socket.addStack();
+  const footerLeft = footer.addStack();
   footerLeft.backgroundColor = new Color('#a0a0a0', .6);
   footerLeft.cornerRadius = 3;
   footerLeft.setPadding(2, 4, 2, 4);
 
-  const footerWidget = socketLeft.addText('impfterminservice.de');
+  const footerWidget = footerLeft.addText('impfterminservice.de');
   footerWidget.url = 'https://www.impfterminservice.de/impftermine';
   footerWidget.font = Font.mediumSystemFont(8);
   footerWidget.color = new Color('#efefef');
