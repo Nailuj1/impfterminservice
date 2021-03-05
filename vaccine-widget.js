@@ -2,7 +2,7 @@
 
 Script      : vaccine-widget.js
 Author      : SEisele
-Version     : 1.0.1
+Version     : 1.0.2
 Description :
  Displays free appointment by param zip code and 
  vaccination variants.
@@ -31,10 +31,12 @@ Limitations:
    App Mode and not in Widget mode.
  * Script link work only for german vaccination 
    center.
+ * Need to add three parameters (zip code, vaccination variants, updateTime)
 
 Changelog:
-v1.0.1 - Adding Notification sound
-v1.0.0 - Initial release
+v1.0.2 - Adding updateTime to Parameter in which interval website will be checked.
+v1.0.1 - Adding Notification sound.
+v1.0.0 - Initial release.
 ----------------------------------------------- */
 
 // Zip Code Vaccination center; Vaccine type
