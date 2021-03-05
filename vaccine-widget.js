@@ -162,10 +162,11 @@ async function createWidget() {
   }else{
     myVar = " ✅"  
    //Notification Sound 
-   let notifi = new Notification()
-    notifi.sound = sound
-    notifi.schedule()
-   
+   for (var i = 0; i <= 3; i++) {
+     let notifi = new Notification()
+        notifi.sound = sound
+        notifi.schedule()
+   }
    // If vaccine is available siri will talk to you :)
    // at the moment it will only supported in the scriptable app (apple block siri in widget)
     // Speech.speak("Es gibt freie Impftermine schnell anrufen");
