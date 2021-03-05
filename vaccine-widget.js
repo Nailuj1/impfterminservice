@@ -48,7 +48,7 @@ const updateTime = paramArray.length == 1 && Number.isInteger(parseInt(paramArra
 const startOfCurrentTime = (time) => (Math.floor(Date.now() / time) * time) + (new Date().getTimezoneOffset()*60*1000)
 const oneMinInMillis = (1 * 60 * 1000)
 const updateTimeInMillis = (updateTime * oneMinInMillis)
-const currentTimeStartInMillis = getStartOfCurrentTime(updateTimeInMillis)
+const currentTimeStartInMillis = startOfCurrentTime(updateTimeInMillis)
 const currentTime = (Math.floor(new Date().getHours() / updateTime) * updateTime)
 
 // Vaccination variants
