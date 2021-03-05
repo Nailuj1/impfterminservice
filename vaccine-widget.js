@@ -42,6 +42,14 @@ const param = args.widgetParameter;
 const paramArray = param ? param.split(";") : [""];
 const plz = paramArray[0];
 const type = paramArray[1];
+const updateTime = paramArray.length == 1 && Number.isInteger(parseInt(paramArray[2])) && parseInt(paramArray[2]) > 0;
+
+// update timer intervall
+const startOfCurrentTime = (time) => (Math.floor(Date.now() / time) * time) + (new Date().getTimezoneOffset()*60*1000)
+const oneMinInMillis = (1 * 60 * 1000)
+const updateTimeInMillis = (updateTime * oneMinInMillis)
+const currentTimeStartInMillis = getStartOfCurrentTime(updateTimeInMillis)
+const currentTime = (Math.floor(new Date().getHours() / updateTime) * updateTime)
 
 // Vaccination variants
 let variant = "Not defined: ";
@@ -151,14 +159,16 @@ async function createWidget() {
   lastArtikel.textColor = new Color("#ffffff");
   var flag = new Boolean(apiData.termineVorhanden);
 
+  // Notification Sound
+  let notifi = new Notification();
+  notifi.sound = sound;
+ 
   if(flag != true){
     myVar = " ❌";
   }else{
     myVar = " ✅";  
-   //Notification Sound 
+   //Notification Sound multiple times
    for (var i = 0; i <= 3; i++) {
-     let notifi = new Notification();
-        notifi.sound = sound;
         notifi.schedule();
    }
    // If vaccine is available siri will talk to you :)
