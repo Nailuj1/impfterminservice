@@ -2,7 +2,7 @@
 
 Script      : vaccine-widget.js
 Author      : SEisele
-Version     : 1.0.0
+Version     : 1.0.1
 Description :
  Displays free appointment by param zip code and 
  vaccination variants.
@@ -14,6 +14,17 @@ Description :
  76287 = Rheinstetten   
  76646 = Bruchsal Heidelsheim  
  76137 = Karlsruhe
+ 
+Sounds:
+    default
+    accept
+    alert
+    complete
+    event
+    failure
+    piano_error
+    piano_success
+    popup
 
 Limitations:   
  * Noification (Siri) only working in Scriptable   
@@ -22,6 +33,7 @@ Limitations:
    center.
 
 Changelog:
+v1.0.1 - Adding Notification sound
 v1.0.0 - Initial release
 ----------------------------------------------- */
 
@@ -37,6 +49,9 @@ let biontec = "Biontec: "
 let moderna = "Moderna: "
 let astraZ = "AstraZeneca: "
 let myVar = "Empty "
+
+// Sound
+let sound = "popup"
 
 // Variant translator
 if(type == "L920"){
@@ -145,9 +160,14 @@ async function createWidget() {
   if(flag != true){
     myVar = " ❌"
   }else{
-    myVar = " ✅"
-// If vaccine is available siri will talk to you :)
-// at the moment it will only supported in the scriptable app (apple block siri in widget)
+    myVar = " ✅"  
+   //Notification Sound 
+   let notifi = new Notification()
+    notifi.sound = sound
+    notifi.schedule()
+   
+   // If vaccine is available siri will talk to you :)
+   // at the moment it will only supported in the scriptable app (apple block siri in widget)
     // Speech.speak("Es gibt freie Impftermine schnell anrufen");
   }
 
