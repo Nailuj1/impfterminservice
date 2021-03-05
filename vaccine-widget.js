@@ -38,134 +38,128 @@ v1.0.0 - Initial release
 ----------------------------------------------- */
 
 // Zip Code Vaccination center; Vaccine type
-const param = args.widgetParameter
-const paramArray = param ? param.split(";") : [""]
-const plz = paramArray[0]
-const type = paramArray[1]
+const param = args.widgetParameter;
+const paramArray = param ? param.split(";") : [""];
+const plz = paramArray[0];
+const type = paramArray[1];
 
 // Vaccination variants
-let variant = "Not defined: "
-let biontec = "Biontec: "
-let moderna = "Moderna: "
-let astraZ = "AstraZeneca: "
-let myVar = "Empty "
+let variant = "Not defined: ";
+let biontec = "Biontec: ";
+let moderna = "Moderna: ";
+let astraZ = "AstraZeneca: ";
+let myVar = "Empty ";
 
 // Sound
-let sound = "popup"
+let sound = "popup";
 
 // Variant translator
 if(type == "L920"){
-  variant = biontec
+  variant = biontec;
 }
 else if (type == "L921"){  
-  variant = moderna
+  variant = moderna;
 }
 else if (type == 'L922'){
-  variant = astraZ
+  variant = astraZ;
 }
 else{
-  variant = " "
+  variant = " ";
 }
 
-const apiData = await getNewCasesData()
-const widgetSize = (config.widgetFamily ? 
-config.widgetFamily : 'small')
+const apiData = await getNewCasesData();
+const widgetSize = (config.widgetFamily ? config.widgetFamily : 'small');
 const widget = await createWidget();
 
 // For debug delete "!" from !config.runInWidget
 if (!config.runInWidget) {
   switch(widgetSize) {
-    case 'small':
-    await widget.presentSmall();
+    case 'small': await widget.presentSmall();
     break;
-
-    case 'large':
-    await widget.presentLarge();
+    case 'large': await widget.presentLarge();
     break;
-
     default: // medium
     await widget.presentMedium();
   }
 }
 
-Script.setWidget(widget)
-Script.complete()
+Script.setWidget(widget);
+Script.complete();
 
 //------------------------------------------------
 // build the content of the widget
 async function createWidget() {
-  const list = new ListWidget()
-  let gradient = new LinearGradient()
-  gradient.locations = [0, 0.5]
-  gradient.colors = [new Color("141414"), new Color("4974a5")]
-  list.backgroundGradient = gradient
+  const list = new ListWidget();
+  let gradient = new LinearGradient();
+  gradient.locations = [0, 0.5];
+  gradient.colors = [new Color("141414"), new Color("4974a5")];
+  list.backgroundGradient = gradient;
 
-  let row1 = list.addStack()
-  row1.layoutHorizontally()
-  row1.addSpacer(1)
+  let row1 = list.addStack();
+  row1.layoutHorizontally();
+  row1.addSpacer(1);
 
-  let column1 = row1.addStack()
-  column1.layoutVertically()
+  let column1 = row1.addStack();
+  column1.layoutVertically();
 
-  let column2 = row1.addStack()
-  column2.layoutVertically()
+  let column2 = row1.addStack();
+  column2.layoutVertically();
 
-  const logoImg = await getImage('termin.png')
-  const logoStack = column2.addStack()
+  const logoImg = await getImage('termin.png');
+  const logoStack = column2.addStack();
 
   if (widgetSize != 'small'){
-    logoStack.addSpacer(60)
-    list.setPadding(15, 25, 5, 25)
+    logoStack.addSpacer(60);
+    list.setPadding(15, 25, 5, 25);
   }else{
-    logoStack.addSpacer(14)
-    list.setPadding(5, 5, 5, 5)
+    logoStack.addSpacer(14);
+    list.setPadding(5, 5, 5, 5);
   }
 
-  const logoImageStack = logoStack.addStack()
-  logoStack.layoutHorizontally()
-  logoImageStack.backgroundColor = new Color("#ffffff", 1.0)
-  logoImageStack.cornerRadius = 6
-  const wimg = logoImageStack.addImage(logoImg)
+  const logoImageStack = logoStack.addStack();
+  logoStack.layoutHorizontally();
+  logoImageStack.backgroundColor = new Color("#ffffff", 1.0);
+  logoImageStack.cornerRadius = 6;
+  const wimg = logoImageStack.addImage(logoImg);
 
   if(widgetSize != 'small'){
-    wimg.imageSize = new Size(50, 50)
-    wimg.rightAlignImage()
+    wimg.imageSize = new Size(50, 50);
+    wimg.rightAlignImage();
   }else{
-    wimg.imageSize = new Size(40, 40)
-    wimg.rightAlignImage()
+    wimg.imageSize = new Size(40, 40);
+    wimg.rightAlignImage();
   }
-
-  const paperText = column1.addText("CORONA 🦠💉🧬")
+  const paperText = column1.addText("CORONA 🦠💉🧬");
   if(widgetSize != 'small'){
-    paperText.textColor = Color.white()
-    paperText.textOpacity = 0.5
-    paperText.font = Font.mediumRoundedSystemFont(20)
+    paperText.textColor = Color.white();
+    paperText.textOpacity = 0.5;
+    paperText.font = Font.mediumRoundedSystemFont(20);
   }else{
-    paperText.textColor = Color.white()
-    paperText.textOpacity = 0.9
-    paperText.font = Font.mediumRoundedSystemFont(18)
+    paperText.textColor = Color.white();
+    paperText.textOpacity = 0.9;
+    paperText.font = Font.mediumRoundedSystemFont(18);
   }
-
   list.addSpacer(8)
-  const lastArtikel = list.addText("Free appointment")  
+ 
+  const lastArtikel = list.addText("Free appointment");  
   if(widgetSize != 'small'){
-    lastArtikel.font = Font.mediumRoundedSystemFont(18)
+    lastArtikel.font = Font.mediumRoundedSystemFont(18);
   }else{
-    lastArtikel.font = Font.mediumRoundedSystemFont(14)
+    lastArtikel.font = Font.mediumRoundedSystemFont(14);
   }
 
-  lastArtikel.textColor = new Color("#ffffff")
+  lastArtikel.textColor = new Color("#ffffff");
   var flag = new Boolean(apiData.termineVorhanden);
 
   if(flag != true){
-    myVar = " ❌"
+    myVar = " ❌";
   }else{
-    myVar = " ✅"  
+    myVar = " ✅";  
    //Notification Sound 
    for (var i = 0; i <= 3; i++) {
-     let notifi = new Notification()
-        notifi.sound = sound
-        notifi.schedule()
+     let notifi = new Notification();
+        notifi.sound = sound;
+        notifi.schedule();
    }
    // If vaccine is available siri will talk to you :)
    // at the moment it will only supported in the scriptable app (apple block siri in widget)
@@ -173,81 +167,81 @@ async function createWidget() {
   }
 
   if(widgetSize != 'small'){
-    list.addSpacer(8)
-    const newPlz = list.addText("Zip Code: " + plz)
-    newPlz.font = Font.regularSystemFont(20)
-    list.addSpacer(4)
-    const newArt = list.addText(variant + myVar)
-    newArt.font = Font.regularSystemFont(20)
+    list.addSpacer(8);
+    const newPlz = list.addText("Zip Code: " + plz);
+    newPlz.font = Font.regularSystemFont(20);
+    list.addSpacer(4);
+    const newArt = list.addText(variant + myVar);
+    newArt.font = Font.regularSystemFont(20);
   }else{
-    list.addSpacer(8)
-    const newPlz = list.addText("Zip Code: " + plz)
-    newPlz.font = Font.regularSystemFont(12)
-    list.addSpacer(4)
-    const newArt = list.addText(variant + myVar)
-    newArt.font = Font.regularSystemFont(12)
+    list.addSpacer(8);
+    const newPlz = list.addText("Zip Code: " + plz);
+    newPlz.font = Font.regularSystemFont(12);
+    list.addSpacer(4);
+    const newArt = list.addText(variant + myVar);
+    newArt.font = Font.regularSystemFont(12);
   }
-  list.addSpacer(4)
-  const socket = list.addStack();
-  socket.layoutHorizontally();
+  list.addSpacer(4);
+ 
+  const footer = list.addStack();
+  footer.layoutHorizontally();
+ 
+  const footerLeft = socket.addStack();
+  footerLeft.backgroundColor = new Color('#a0a0a0', .6);
+  footerLeft.cornerRadius = 3;
+  footerLeft.setPadding(2, 4, 2, 4);
 
-  const socketLeft = socket.addStack();
-  socketLeft.backgroundColor = new Color('#a0a0a0', .6);
-  socketLeft.cornerRadius = 3;
-  socketLeft.setPadding(2, 4, 2, 4)
+  const footerWidget = socketLeft.addText('impfterminservice.de');
+  footerWidget.url = 'https://www.impfterminservice.de/impftermine';
+  footerWidget.font = Font.mediumSystemFont(8);
+  footerWidget.color = new Color('#efefef');
 
-  const socketAboutWidget = socketLeft.addText('impfterminservice.de');
-  socketAboutWidget.url = 'https://www.impfterminservice.de/impftermine'
-  socketAboutWidget.font = Font.mediumSystemFont(8);
-  socketAboutWidget.color = new Color('#efefef');
+  footer.addSpacer(10);
 
-  socket.addSpacer(10);
-
- return list
+ return list;
 }
 
 //------------------------------------------------
 // url get json
 async function getNewCasesData(){
-  let url = "https://005-iz.impfterminservice.de/rest/suche/termincheck?plz="+plz+"&leistungsmerkmale="+type
-  let req = new Request(url)
-  let apiResult = await req.loadJSON()
+  let url = "https://005-iz.impfterminservice.de/rest/suche/termincheck?plz="+plz+"&leistungsmerkmale="+type;
+  let req = new Request(url);
+  let apiResult = await req.loadJSON();
 
-  return apiResult
+  return apiResult;
 }
 
 //------------------------------------------------
 // get images from local filestore or download them once
 async function getImage(image){
-  let fm = FileManager.local()
-  let dir = fm.documentsDirectory()
-  let path = fm.joinPath(dir, image)
+  let fm = FileManager.local();
+  let dir = fm.documentsDirectory();
+  let path = fm.joinPath(dir, image);
   
   if (fm.fileExists(path)) {
-      return fm.readImage(path)
+      return fm.readImage(path);
    }else{
        // download once
-       let imageUrl
+       let imageUrl;
        switch (image){
-           case 'termin.png':
-               imageUrl = "https://www.tf.uni-freiburg.de/de/bilder/icons/termin.png/image_preview"
-               break
+           case 'termin.png': imageUrl = "https://www.tf.uni-freiburg.de/de/bilder/icons/termin.png/image_preview";
+               break;
            default:
                console.log(`Sorry, couldn't find ${image}.`);
         }
-       let iconImage = await loadImage(imageUrl)
-       fm.writeImage(path, iconImage)
+       let iconImage = await loadImage(imageUrl);
+       fm.writeImage(path, iconImage);
 
-       return iconImage
+    return iconImage;
    }
 }
 
 //------------------------------------------------
 // helper function to download an image from a given url
 async function loadImage(imgUrl){
-  const req = new Request(imgUrl)
+   const req = new Request(imgUrl);
 
-  return await req.loadImage()
+  return await req.loadImage();
 }
 
 // end of script copy until here 
